@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kelvin_football</title>
+
+<style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+
+body {
+    background: #071426;
+    color: white;
+}
+
+header {
+    background: #0d2340;
+    padding: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 2px solid #19d68b;
+}
+
+.logo {
+    font-size: 23px;
+    font-weight: bold;
+    color: #19d68b;
+}
+
+.logo span {
+    color: white;
+}
+
+nav a {
+    color: white;
+    text-decoration: none;
+    margin-left: 12px;
+    font-size: 13px;
+}
+
+.hero {
+    padding: 35px 20px;
+    text-align: center;
+    background: linear-gradient(135deg,#102d50,#071426);
+}
+
+.hero h1 {
+    font-size: 32px;
+    margin-bottom: 10px;
+}
+
+.hero h1 span {
+    color: #19d68b;
+}
+
+.hero p {
+    color: #bdc9d9;
+    line-height: 1.6;
+}
+
+.live {
+    display: inline-block;
+    margin-top: 18px;
+    padding: 9px 18px;
+    background: #19d68b;
+    color: #071426;
+    border-radius: 20px;
+    font-weight: bold;
+}
+
+.container {
+    padding: 20px;
+    max-width: 1000px;
+    margin: auto;
+}
+
+.section-title {
+    font-size: 21px;
+    margin: 25px 0 15px;
+    border-left: 4px solid #19d68b;
+    padding-left: 10px;
+}
+
+.tabs {
+    display: flex;
+    gap: 10px;
+    overflow-x: auto;
+    margin-bottom: 20px;
+}
+
+.tabs button {
+    background: #173251;
+    border: none;
+    color: white;
+    padding: 11px 17px;
+    border-radius: 7px;
+    cursor: pointer;
+}
+
+.tabs button.active {
+    background: #19d68b;
+    color: #071426;
+}
+
+.match {
+    background: #10243d;
+    border: 1px solid #24405e;
+    border-radius: 12px;
+    padding: 18px;
+    margin-bottom: 15px;
+}
+
+.match-top {
+    display: flex;
+    justify-content: space-between;
+    color: #aabbd0;
+    font-size: 12px;
+    margin-bottom: 18px;
+}
+
+.teams {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    text-align: center;
+}
+
+.team {
+    width: 38%;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+.team .emoji {
+    font-size: 30px;
+    display: block;
+    margin-bottom: 8px;
+}
+
+.vs {
+    color: #19d68b;
+    font-weight: bold;
+}
+
+.prediction {
+    background: #0a1a2e;
+    padding: 13px;
+    border-radius: 8px;
+    margin-top: 18px;
+    font-size: 13px;
+    line-height: 1.8;
+}
+
+.prediction strong {
+    color: #19d68b;
+}
+
+.status {
+    color: #19d68b;
+}
+
+.result {
+    color: #ffc857;
+}
+
+.search {
+    width: 100%;
+    padding: 14px;
+    background: #10243d;
+    color: white;
+    border: 1px solid #34506c;
+    border-radius: 8px;
+    outline: none;
+    margin-bottom: 15px;
+}
+
+.search::placeholder {
+    color: #9aadc2;
+}
+
+.info {
+    background: #10243d;
+    border-radius: 10px;
+    padding: 18px;
+    line-height: 1.8;
+    color: #c7d3e2;
+}
+
+footer {
+    background: #0d2340;
+    text-align: center;
+    padding: 25px;
+    margin-top: 40px;
+    color: #9aadc2;
+    font-size: 13px;
+}
+
+footer strong {
+    color: #19d68b;
+}
+
+.hidden {
+    display: none;
+}
+
+@media(max-width:600px) {
+    header {
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    nav a {
+        margin: 0 5px;
+    }
+
+    .hero h1 {
+        font-size: 26px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+    <div class="logo">⚽ Kelvin_<span>football</span></div>
+    <nav>
+        <a href="#home">Home</a>
+        <a href="#fixtures">Fixtures</a>
+        <a href="#predictions">Predictions</a>
+    </nav>
+</header>
+
+<section class="hero" id="home">
+    <h1>WELCOME TO <span>KELVIN FOOTBALL</span></h1>
+    <p>Your football centre for Champions League fixtures,
+    match predictions and football results.</p>
+    <div class="live">🏆 UEFA CHAMPIONS LEAGUE</div>
+</section>
+
+<div class="container">
+
+    <h2 class="section-title">🔎 Search Matches</h2>
+
+    <input class="search" id="search"
+    placeholder="Search Liverpool, Barcelona, Bayern..."
+    oninput="searchMatches()">
+
+    <h2 class="section-title" id="fixtures">⚽ Match Fixtures</h2>
+
+    <div class="tabs">
+        <button class="active" onclick="filterMatches('all',this)">All</button>
+        <button onclick="filterMatches('upcoming',this)">Upcoming</button>
+        <button onclick="filterMatches('results',this)">Results</button>
+    </div>
+
+    <div id="matches">
+
+        <!-- NOVEMBER 25 FIXTURES -->
+
+        <div class="match" data-type="upcoming">
+            <div class="match-top">
+                <span>25 NOV 2026</span>
+                <span class="status">UPCOMING</span>
+            </div>
+            <div class="teams">
+                <div class="team"><span class="emoji">🔴</span>Club Brugge</div>
+                <div class="vs">VS</div>
+                <div class="team"><span class="emoji">🔴</span>Liverpool</div>
+            </div>
+            <div class="prediction">
+                <strong>Kelvin Prediction:</strong><br>
+                Predicted winner: Liverpool<br>
+                Predicted score: 1 - 2<br>
+                Prediction: Away win
+            </div>
+        </div>
+
+        <div class="match" data-type="upcoming">
+            <div class="match-top">
+                <span>25 NOV 2026</span>
+                <span class="status">UPCOMING</span>
+            </div>
+            <div class="teams">
+                <div class="team"><span class="emoji">🔵</span>PSG</div>
+                <div class="vs">VS</div>
+                <div class="team"><span class="emoji">🟡</span>AS Roma</div>
+            </div>
+            <div class="prediction">
+                <strong>Kelvin Prediction:</strong><br>
+                Predicted winner: PSG<br>
+                Predicted score: 2 - 1<br>
+                Prediction: Home win
+            </div>
+        </div>
+
+        <div class="match" data-type="upcoming">
+            <div class="match-top">
+                <span>25 NOV 2026</span>
+                <span class="status">UPCOMING</span>
+            </div>
+            <div class="teams">
+                <div class="team"><span class="emoji">🔴</span>Arsenal</div>
+                <div class="vs">VS</div>
+                <div class="team"><span class="emoji">⚫</span>Inter Milan</div>
+            </div>
+            <div class="prediction">
+                <strong>Kelvin Prediction:</strong><br>
+                Predicted winner: Inter Milan<br>
+                Predicted score: Not available<br>
+                Prediction: Fixture not included in today's schedule.
+            </div>
+        </div>
+
+        <div class="match" data-type="upcoming">
+            <div class="match-top">
+                <span>25 NOV 2026</span>
+                <span class="status">UPCOMING</span>
+            </div>
+            <div class="teams">
+                <div class="team"><span class="emoji">🔴</span>Atletico Madrid</div>
+                <div class="vs">VS</div>
+                <div class="team"><span class="emoji">🟡</span>Viking FK</div>
+            </div>
+            <div class="prediction">
+                <strong>Kelvin Prediction:</strong><br>
+                Predicted winner: Atletico Madrid<br>
+                Predicted score: 2 - 0<br>
+                Prediction: Home win
+            </div>
+        </div>
+
+        <div class="match" data-type="upcoming">
+            <div class="match-top">
+                <span>25 NOV 2026</span>
+                <span class="status">UPCOMING</span>
+            </div>
+            <div class="teams">
+                <div class="team"><span class="emoji">🔵</span>Lille</div>
+                <div class="vs">VS</div>
+                <div class="team"><span class="emoji">🔴</span>Bayern Munich</div>
+            </div>
+            <div class="prediction">
+                <strong>Kelvin Prediction:</strong><br>
+                Predicted winner: Bayern Munich<br>
+                Predicted score: 1 - 3<br>
+                Prediction: Away win
+            </div>
+        </div>
+
+        <!-- PREVIOUS RESULTS -->
+
+        <div class="match" data-type="results">
+            <div class="match-top">
+                <span>24 NOV 2026</span>
+                <span class="result">FULL TIME</span>
+            </div>
+            <div class="teams">
+                <div class="team"><span class="emoji">⚪</span>Real Madrid</div>
+                <div class="vs">5 - 1</div>
+                <div class="team"><span class="emoji">🔴</span>PSV</div>
+            </div>
+        </div>
+
+        <div class="match" data-type="results">
+            <div class="match-top">
+                <span>24 NOV 2026</span>
+                <span class="result">FULL TIME</span>
+            </div>
+            <div class="teams">
+                <div class="team"><span class="emoji">🔵</span>Man City</div>
+                <div class="vs">2 - 2</div>
+                <div class="team"><span class="emoji">🔵</span>Napoli</div>
+            </div>
+        </div>
+
+        <div class="match" data-type="results">
+            <div class="match-top">
+                <span>24 NOV 2026</span>
+                <span class="result">FULL TIME</span>
+            </div>
+            <div class="teams">
+                <div class="team"><span class="emoji">🔴</span>Arsenal</div>
+                <div class="vs">1 - 1</div>
+                <div class="team"><span class="emoji">🟡</span>Dortmund</div>
+            </div>
+        </div>
+
+    </div>
+
+    <h2 class="section-title" id="predictions">📊 About Our Predictions</h2>
+
+    <div class="info">
+        Welcome to Kelvin_football.
+
+        <br><br>
+        We provide football match previews, predicted scores,
+        possible winners and Champions League fixtures.
+
+        <br><br>
+        Predictions are opinions, not guaranteed results.
+        Always check official match information for updates.
+    </div>
+
+</div>
+
+<footer>
+    <strong>⚽ Kelvin_football</strong>
+    <p>Champions League Football Centre</p>
+    <p>© 2026 Kelvin_football. All rights reserved.</p>
+</footer>
+
+<script>
+function filterMatches(type, button) {
+    document.querySelectorAll('.tabs button').forEach(b => {
+        b.classList.remove('active');
+    });
+
+    button.classList.add('active');
+
+    document.querySelectorAll('.match').forEach(match => {
+        if (type === 'all' || match.dataset.type === type) {
+            match.classList.remove('hidden');
+        } else {
+            match.classList.add('hidden');
+        }
+    });
+}
+
+function searchMatches() {
+    let query = document.getElementById('search')
+        .value.toLowerCase();
+
+    document.querySelectorAll('.match').forEach(match => {
+        match.classList.toggle(
+            'hidden',
+            !match.innerText.toLowerCase().includes(query)
+        );
+    });
+}
+</script>
+
+</body>
+  </html>
